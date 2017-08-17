@@ -44,12 +44,12 @@ module Alipay
         Alipay::Service.check_required_params(params, ALIPAY_TRADE_REFUND_REQUIRED_PARAMS)
         params.merge('method' => 'alipay.trade.refund')
         params = prepare_params(params, options)
-        request_uri(params, options)
+        request_uri(params)
       end
 
-      def self.request_uri(params, options = {})
+      def self.request_uri(params)
         uri = URI(GATEWAY_URL)
-        uri.query = URI.encode_www_form(sign_params(params, options))
+        uri.query = URI.encode_www_form(params)
         uri
       end
     end

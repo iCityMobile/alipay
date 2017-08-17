@@ -33,7 +33,7 @@ module Alipay
       def self.alipay_trade_app_pay(params, options = {})
         params = Utils.stringify_keys(params)
         Alipay::Service.check_required_params(params, ALIPAY_TRADE_APP_PAY_REQUIRED_PARAMS)
-        params.merge('method' => 'alipay.trade.app.pay')
+        params = params.merge('method' => 'alipay.trade.app.pay')
         params = prepare_params(params, options)
         Alipay::App::Sign.params_to_encoded_string params
       end
@@ -42,7 +42,7 @@ module Alipay
       def self.alipay_trade_refund_url(params, options = {})
         params = Utils.stringify_keys(params)
         Alipay::Service.check_required_params(params, ALIPAY_TRADE_REFUND_REQUIRED_PARAMS)
-        params.merge('method' => 'alipay.trade.refund')
+        params = params.merge('method' => 'alipay.trade.refund')
         params = prepare_params(params, options)
         request_uri(params)
       end

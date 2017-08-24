@@ -29,6 +29,7 @@ module Alipay
         params.merge('sign' => sign)
       end
 
+      # APP支付
       ALIPAY_TRADE_APP_PAY_REQUIRED_PARAMS = %w( app_id biz_content notify_url )
       def self.alipay_trade_app_pay(params, options = {})
         params = Utils.stringify_keys(params)
@@ -38,11 +39,24 @@ module Alipay
         Alipay::App::Sign.params_to_encoded_string params
       end
 
+      # 退款
+      # 参考文档：https://docs.open.alipay.com/api_1/alipay.trade.refund/
       ALIPAY_TRADE_REFUND_REQUIRED_PARAMS = %w( app_id biz_content )
       def self.alipay_trade_refund_url(params, options = {})
         params = Utils.stringify_keys(params)
         Alipay::Service.check_required_params(params, ALIPAY_TRADE_REFUND_REQUIRED_PARAMS)
         params = params.merge('method' => 'alipay.trade.refund')
+        params = prepare_params(params, options)
+        request_uri(params)
+      end
+
+      # 退款查询
+      # 参考文档：https://docs.open.alipay.com/api_1/alipay.trade.fastpay.refund.query/
+      ALIPAY_TRADE_REFUND_QUERY_REQUIRED_PARAMS = %w( app_id biz_content )
+      def self.alipay_trade_refund_query_url(params, options = {})
+        params = Utils.stringify_keys(params)
+        Alipay::Service.check_required_params(params, ALIPAY_TRADE_REFUND_QUERY_REQUIRED_PARAMS)
+        params = params.merge('method' => 'alipay.trade.fastpay.refund.query')
         params = prepare_params(params, options)
         request_uri(params)
       end
